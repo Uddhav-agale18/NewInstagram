@@ -1,7 +1,7 @@
 import React,{useEffect,createContext,useReducer,useContext} from 'react';
 import NavBar from './components/NavBar';
 import "./App.css"
-import {BrowserRouter,Route,Routes,useNavigate} from 'react-router-dom'
+import {BrowserRouter as Router,Route,Routes,useNavigate} from 'react-router-dom'
 import Home from './components/screens/Home';
 import Signin from './components/screens/Signin';
 import Profile from './components/screens/Profile';
@@ -9,6 +9,9 @@ import Signup from './components/screens/Signup';
 import CreatePost from './components/screens/CreatePost';
 import {reducer,initialState } from './reducer/userReducer';
 import UserProfile from './components/screens/UserProfile'
+import SubscribedUserPosts from './components/screens/SubscribesUserPosts'
+import Reset from './components/screens/Reset';
+import NewPassword from './components/screens/Newpassword'; 
 export const UserContext = createContext()
 
 const Routing=()=>{
@@ -19,6 +22,7 @@ const Routing=()=>{
      if(user){
       dispatch({type:"USER",payload:user})
     }else{
+      if(!window.location.pathname.startsWith===('/reset'))
       navigate('/signin')
     }
   },[])
@@ -42,6 +46,12 @@ const Routing=()=>{
     
     <Route path ="/profile/:userid"element={<UserProfile />} />
 
+    <Route path ="/myfollowingpost"element={<SubscribedUserPosts />} />
+
+     <Route exact path ="/reset"element={<Reset />} />
+    
+    <Route path ="/reset/:token"element={<NewPassword />} />
+
     </Routes>
   )
 }
@@ -54,12 +64,12 @@ function App() {
 
      
     
-    <BrowserRouter>
+    <Router>
 
      <NavBar/>
     <Routing/>
 
-    </BrowserRouter>
+    </Router>
     </UserContext.Provider>
   );
 }
