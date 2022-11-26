@@ -9,7 +9,11 @@ const {MONGOURI} = require('./config/keys')
 
 
 
-mongoose.connect(MONGOURI)
+mongoose.connect(MONGOURI,{
+    useNewUrlParser:true,
+    useUnifiedTopology: true
+
+})
 
 
 mongoose.connection.on('connected',()=>{
