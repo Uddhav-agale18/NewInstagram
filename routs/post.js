@@ -19,7 +19,6 @@ router.get('/allpost',requireLogin,(req,res)=>{
 
 router.get('/getsubpost',requireLogin,(req,res)=>{
 
-    // if postedBy in following
     Post.find({postedBy:{$in:req.user.following}})
     .populate("postedBy","_id name")
     .populate("comments.postedBy","_id name")
@@ -119,7 +118,7 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
         }
         if(post.postedBy._id.toString() === req.user._id.toString()){
               post.remove()
-              .then(result=>{
+              .then(_result=>{
                   res.json({message:"successfully deleted"})
               }).catch(err=>{
                   console.log(err)

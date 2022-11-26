@@ -60,7 +60,6 @@ router.post('/signin',(req,res)=>{
         bcrypt.compare(password,savedUser.password)
         .then(doMatch=>{
             if(doMatch){
-                // res.json({message:"successfully signed in"})
                 const token=jwt.sign({_id:savedUser._id},JWT_SECRET)
                 const {_id,name,email,followers,following,pic} = savedUser
                 res.json({token,user:{_id,name,email,followers,following,pic}})
@@ -76,7 +75,7 @@ router.post('/signin',(req,res)=>{
 })
 
 
-router.post('/reset-password',requireLogin,(req,res)=>{
+router.post('/reset-password',(req,res)=>{
     crypto.randomBytes(32,(err,buffer)=>{
         if(err){
             console.log(err)
